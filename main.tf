@@ -4,6 +4,7 @@ provider "google" {
   project = var.GOOGLE_PROJECT
   # The GCP region to deploy resources in
   region = var.GOOGLE_REGION
+  zone   = var.GOOGLE_ZONE
 }
 
 # Create the GKE (Google Kubernetes Engine) cluster
@@ -11,7 +12,7 @@ resource "google_container_cluster" "this" {
   # Name of the cluster
   name = var.GKE_CLUSTER_NAME
   # Location (region) for the cluster
-  location = var.GOOGLE_REGION
+  location = var.GOOGLE_ZONE
 
   # Set initial node count (required, but will remove default pool)
   initial_node_count = 1
@@ -63,7 +64,7 @@ module "gke_auth" {
   # Project and cluster details for authentication
   project_id   = var.GOOGLE_PROJECT
   cluster_name = google_container_cluster.this.name
-  location     = var.GOOGLE_REGION
+  location     = google_container_cluster.this.location
 }
 
 # Data source to retrieve the current Google client configuration
@@ -74,5 +75,5 @@ data "google_container_cluster" "main" {
   # Name of the cluster
   name = google_container_cluster.this.name
   # Location (region)
-  location = var.GOOGLE_REGION
+  location = google_container_cluster.this.location
 }
