@@ -50,6 +50,7 @@ resource "google_container_node_pool" "this" {
   node_config {
     # Machine type for the nodes
     machine_type = var.GKE_MACHINE_TYPE
+    spot         = var.GKE_SPOT
   }
 }
 

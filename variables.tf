@@ -21,6 +21,12 @@ variable "GKE_MACHINE_TYPE" {
   description = "Machine type"
 }
 
+variable "GKE_SPOT" {
+  type        = bool
+  default     = false
+  description = "Use spot instances for GKE nodes"
+}
+
 variable "GKE_NUM_NODES" {
   type        = number
   default     = 2
