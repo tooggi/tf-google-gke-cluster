@@ -1,5 +1,5 @@
 output "config_host" {
-  value = "https://${data.google_container_cluster.main.endpoint}"
+  value = "https://${google_container_cluster.this.endpoint}"
 }
 
 output "config_ca" {
