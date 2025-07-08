@@ -2,15 +2,23 @@ output "config_host" {
   value = "https://${data.google_container_cluster.main.endpoint}"
 }
 
-output "config_token" {
-  value     = data.google_client_config.current.access_token
-  sensitive = true
-}
-
 output "config_ca" {
   value = base64decode(
-    data.google_container_cluster.main.master_auth[0].cluster_ca_certificate,
+    google_container_cluster.this.master_auth[0].cluster_ca_certificate
   )
+}
+
+output "config_client_certificate" {
+  value = base64decode(
+    google_container_cluster.this.master_auth[0].client_certificate
+  )
+}
+
+output "config_client_key" {
+  value = base64decode(
+    google_container_cluster.this.master_auth[0].client_key
+  )
+  sensitive = true
 }
 
 output "name" {
