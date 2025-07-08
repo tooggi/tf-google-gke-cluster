@@ -17,7 +17,7 @@ variable "GOOGLE_ZONE" {
 
 variable "GKE_MACHINE_TYPE" {
   type        = string
-  default     = "g1-small"
+  default     = "e2-medium"
   description = "Machine type"
 }
 
@@ -29,7 +29,7 @@ variable "GKE_SPOT" {
 
 variable "GKE_NUM_NODES" {
   type        = number
-  default     = 2
+  default     = 5
   description = "GKE nodes number"
 }
 
