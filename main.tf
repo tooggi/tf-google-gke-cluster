@@ -54,27 +54,3 @@ resource "google_container_node_pool" "this" {
   }
 }
 
-# Module to authenticate with GKE cluster using native Terraform module
-module "gke_auth" {
-  depends_on = [
-    google_container_cluster.this
-  ]
-  # Source of the module (Terraform Registry)
-  source  = "terraform-google-modules/kubernetes-engine/google//modules/auth"
-  version = ">= 24.0.0"
-  # Project and cluster details for authentication
-  project_id   = var.GOOGLE_PROJECT
-  cluster_name = google_container_cluster.this.name
-  location     = google_container_cluster.this.location
-}
-
-# Data source to retrieve the current Google client configuration
-data "google_client_config" "current" {}
-
-# Data source to fetch details about the created GKE cluster
-data "google_container_cluster" "main" {
-  # Name of the cluster
-  name = google_container_cluster.this.name
-  # Location (region)
-  location = google_container_cluster.this.location
-}
